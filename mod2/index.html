@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>Shopping List Check Off</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="styles/bootstrap.min.css">
+    <script src="./angular.min.js"></script>
+    <style>
+      .emptyMessage {
+        font-weight: bold;
+        color: red;
+        font-size: 1.2em;
+      }
+      li {
+        margin-bottom: 7px;
+        font-size: 1.2em;
+      }
+      li > button {
+        margin-left: 6px;
+      }
+      button > span {
+        color: green;
+      }
+    </style>
+  </head>
+<body ng-app="ShoppingListCheckOff">
+
+  <div class="container">
+    <div class="page-header">
+      <h1>
+        Check-off Shopping List
+      </h1>
+      
+    </div>
+    <div class="row">
+      <div class="col-md-6">
+        <div class="panel panel-primary" id="to-buy" ng-controller="ToBuyController as TBCtrl">
+          <div class="panel-heading">
+            <h2 class="panel-title glyphicon glyphicon-shopping-cart">  To Buy</h2>
+          </div>
+          <div class="panel-body">
+            <p class="message" ng-show="!TBCtrl.isEmpty()">Clicking on "Bought" will move your items to the list on the right.</p>
+            <form class="form-inline">
+              <div class="list">
+                <p class="status" ng-show="TBCtrl.isEmpty()">Everything is bought!</p>
+                <div ng-if="!TBCtrl.isEmpty()" ng-repeat="o in TBCtrl.getItems()">
+                  <div class="list-item row">
+                    <label>
+                      <div class="col-sm-9"><span class="mylabel">Buy<span> {{o.quantity}}</span> of<span> {{o.name}}</span></span></div>
+                      <div class="col-sm-3">
+                        <button class="btn btn-success" ng-click="TBCtrl.setBought($index)">Bought <span class="glyphicon glyphicon-arrow-right"></span></button>
+                      </div>
+                    </label>
+                  </div>
+                </div>
+              </div>
+            </form>
+          </div>
+          <div class="panel-footer">
+            <form class="form form-inline">
+              <p>Add to shopping list:</p>
+              <input class="form-control" placeholder="Quantity" size="10" ng-model="TBCtrl.new_qty">
+              <input class="form-control" placeholder="Name" ng-model="TBCtrl.new_name">
+              <button class="btn btn-primary" ng-click="TBCtrl.addToList()">Add</button>
+            </form>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="panel panel-success" id="bought" ng-controller="AlreadyBoughtController as ABCtrl">
+          <div class="panel-heading">
+            <h2 class="panel-title glyphicon glyphicon-ok"> Already bought</h2>
+          </div>
+          <div class="panel-body">
+            <p class="status" ng-if="ABCtrl.isEmpty()">Nothing bought yet</p>
+            <ul ng-if="!ABCtrl.isEmpty()">
+              <div class="list">
+                <div ng-repeat="o in ABCtrl.getItems()">
+                  <div class="list-item"><span class="mylabel">Bought<span> {{o.quantity}}</span> of<span> {{o.name}}</span></span></div>
+                </div>
+              </div>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+    <hr>
+    
+  </div>
+   <!-- <div class="container">
+    
+  <h1>Shopping List Check Off</h1>
+
+  <div class="row">
+
+     To Buy List 
+    <div class="col-md-6">
+     <h2>To Buy:</h2>
+     <ul>
+       <li>Buy 10 cookies <button class="btn btn-default"><span class="glyphicon glyphicon-ok"></span> Bought</button></li>
+       <li>Buy 10 cookies <button class="btn btn-default"><span class="glyphicon glyphicon-ok"></span> Bought</button></li>
+     </ul>
+     <div class="emptyMessage">Everything is bought!</div>
+    </div>
+
+     Already Bought List 
+    <div class="col-md-6">
+     <h2>Already Bought:</h2>
+     <ul>
+       <li>Bought 10 cookies</li>
+     </ul>
+     <div class="emptyMessage">Nothing bought yet.</div>
+    </div>
+  </div>
+</div>-->
+
+</body>
+</html>
